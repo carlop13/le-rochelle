@@ -1,0 +1,16 @@
+img {
+    /* Establece el tamaño inicial de la imagen */
+    transform: scale(1);
+    /* Agrega una transición suave al tamaño de la imagen */
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Cuando el mouse se pase sobre la imagen, cambia su tamaño a 1.5 veces su tamaño original */
+  .img-producto:hover {
+    transform: scale(1.1);
+  }
+
+  #caja_busqueda {
+    border-radius: 10px;
+  }
+  

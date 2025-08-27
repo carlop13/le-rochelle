@@ -1,0 +1,318 @@
+create database lerochelle;
+
+use lerochelle;
+
+create table usuario (
+id int auto_increment not null, 
+password varchar (50),
+tipo varchar (20),
+activo int,
+token varchar (32),
+constraint primary key(id));
+
+desc usuario;
+
+create table cliente(
+id int auto_increment not null,
+nombre varchar (50),
+correo varchar (100),
+fec_registro date,
+tel varchar(10),
+id_usu int,
+constraint primary key(id),
+constraint foreign key(id_usu) references usuario(id));
+
+desc cliente;
+
+create table propietario(
+id int auto_increment not null,
+nombre varchar (50),
+ap varchar (30),
+correo varchar (100),
+fec_registro date,
+tel varchar(10),
+id_usu int,
+constraint primary key(id),
+constraint foreign key(id_usu) references usuario(id));
+
+desc propietario;
+
+create table administrador(
+id int auto_increment not null,
+nombre varchar (50),
+correo varchar (100),
+id_usu int,
+constraint primary key(id),
+constraint foreign key(id_usu) references usuario(id));
+
+desc administrador;
+
+
+create table datos (
+id int auto_increment not null,
+nombre VARCHAR(150),  
+calle VARCHAR(255),
+numero varchar(20),
+colonia varchar(200),
+cp varchar(20),
+ciudad VARCHAR(100),
+estado VARCHAR(100),
+pais VARCHAR(100),
+tel VARCHAR(15),
+correo VARCHAR(200),
+horario VARCHAR(30),
+lat VARCHAR(30),
+lng VARCHAR(30),
+fb VARCHAR(120),
+ig VARCHAR(120),
+tk VARCHAR(120),
+ws varchar(10),
+constraint primary key(id));
+
+desc datos;
+
+insert into datos values(null,"Le Rochelle Real Estate","Hacienda del Jacal","424",
+"Jardines de la Hacienda","76180","Santiago de Querétaro","Qro","México","442 721 1537",
+"csuarez@yahoo.com.mx","8:00 - 22:00",20.571760760467,-100.402363988090,"https://www.facebook.com/profile.php?id=100092614891771&mibextid=LQQJ4d","https://instagram.com/le_rochelle_real_estate?igshid=MzRlODBiNWFlZA==", "https://www.tiktok.com/@real.estate","4423778103");
+
+create table pais(
+id int auto_increment,
+pais varchar(50), 
+activo int,
+constraint primary key(id));
+
+desc pais;
+
+create table ciudad(
+id int auto_increment not null,
+nombre VARCHAR(150),
+id_pais int,
+activo int,
+constraint primary key(id),
+constraint foreign key(id_pais) references pais(id));
+
+desc ciudad;
+
+create table tipo(
+id int auto_increment,
+tipo varchar(50), 
+activo int,
+constraint primary key(id));
+
+desc tipo;
+
+
+create table moneda(
+id int auto_increment,
+nombre varchar(25), 
+simbolo varchar(10), 
+signo varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci, 
+constraint primary key(id));
+
+desc moneda;
+
+
+create table propiedad(
+id int auto_increment,
+titulo varchar(50),
+calle varchar(80),
+col varchar(80),
+noext varchar(50),
+habitaciones varchar(20),
+banios varchar(20),
+pisos varchar(20),  
+garage varchar(5),
+precio float(16,2),
+foto varchar(180),
+id_ciu int,
+id_propi int,
+id_tipo int,
+estado varchar(20),
+lat decimal(18,12),
+lng decimal(18,12),
+id_mon int,
+fecha_alta date,
+disponible int,
+noesta varchar(20),
+ancho varchar(60),
+fondo varchar(60),
+suptot varchar(60),
+mconst varchar(60),
+ctoser varchar(6),
+mbanios varchar(6),
+constraint primary key(id),
+constraint foreign key(id_ciu) references ciudad(id),
+constraint foreign key(id_mon) references moneda(id),
+constraint foreign key(id_tipo) references tipo(id),
+constraint foreign key(id_propi) references propietario(id));
+
+desc propiedad;
+
+
+create table descripcion(
+id int auto_increment,
+descripcion varchar(900), 
+id_prop int,
+constraint primary key(id),
+constraint foreign key(id_prop) references propiedad(id));
+
+desc descripcion;
+
+create table foto(
+id int auto_increment,
+foto varchar(180), 
+id_prop int,
+constraint primary key(id),
+constraint foreign key(id_prop) references propiedad(id));
+
+desc foto;
+
+create table destacado(
+id int auto_increment,
+id_prop int,
+constraint primary key(id),
+constraint foreign key(id_prop) references propiedad(id));
+
+desc destacado;
+
+create table solicitud(
+id int auto_increment,
+id_cli int,
+id_prop int,
+mensaje varchar(180),
+fecha date,
+constraint primary key(id),
+constraint foreign key(id_prop) references propiedad(id),
+constraint foreign key(id_cli) references cliente(id));
+
+desc solicitud;
+
+create table resenia(
+id int auto_increment,
+id_cli int,
+id_propietario int,
+resenia varchar(180),
+fecha datetime,
+constraint primary key(id),
+constraint foreign key(id_propietario) references propietario(id),
+constraint foreign key(id_cli) references cliente(id));
+
+desc resenia;
+
+create table inquilino(
+id int auto_increment,
+id_cli int,
+id_prop int,
+fecha date,
+constraint primary key(id),
+constraint foreign key(id_prop) references propiedad(id),
+constraint foreign key(id_cli) references cliente(id));
+
+desc inquilino;
+
+create table estrella(
+id int auto_increment,
+estrellas float(5,1),
+fecha date,
+id_cliente int,
+id_propietario int,
+constraint primary key(id),
+constraint foreign key(id_propietario) references propietario(id),
+constraint foreign key(id_cliente) references cliente(id));
+
+desc estrella;
+
+
+create table mensaje(
+id int auto_increment,
+nombre varchar(80),
+correo varchar(180),
+tel varchar(10),
+fecha datetime,
+mensaje varchar(150), 
+constraint primary key(id));
+
+desc mensaje;
+
+insert into usuario values(null,md5("micontrasenia"),"administrador",1,"");
+insert into administrador values(null,"admin1","csuarez@yahoo.com.mx",1);
+
+insert into moneda values(null,"Peso mexicano","MXN","$");
+insert into moneda values(null,"Dólar estadounidense","USD","$");
+insert into moneda values(null,"Euro","EUR","€");
+insert into moneda values(null,"Dólar canadiense","CAD","$");
+insert into moneda values(null,"Real brasileño","BRL","R$");
+insert into moneda values(null,"Peso argentino","ARS","$");
+insert into moneda values(null,"Franco suizo","CHF","Fr");
+insert into moneda values(null,"Yen japonés","JPY","¥");
+insert into moneda values(null,"Libra esterlina británica","GBP","£");
+insert into moneda values(null,"Dólar australiano","AUD","$");
+
+DELIMITER //
+
+CREATE TRIGGER evitar_fotos_vacias
+BEFORE INSERT ON foto
+FOR EACH ROW
+BEGIN
+    IF NEW.foto = '' THEN
+        SET NEW.id_prop = NULL; 
+    END IF;
+END//
+
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+insert into ciudad values(null,"Querétaro");
+
+insert into usuario values(null,md5(12345678),"propietario",1,"");
+
+insert into propietario values(null,"David","Guillermo","Santiago","davgui@gmail.com",now(),"4423535507",1);
+
+
+insert into usuario values(null,md5(123),"propietario",1,"");
+
+insert into propietario values(null,"Luis","Negativo","Arredondo","lui@gmail.com",now(),"4151253212",2);
+
+
+
+insert into tipo values(null,"Casa");
+insert into tipo values(null,"Villa");
+insert into tipo values(null,"Departamento");
+
+insert into propiedad values(null,"Casa moderna","Arco la Gloria","San Pedrito los Arcos","101","43","5","2","3","Si","50m²",1200000,"casa.JFIF","Venta",1,1,1,null,null);
+
+insert into propiedad values(null,"Casa espaciosa con jardín","Conde","Condesa","12","403","5","3","2","Si","80m²",2400,"cajardin.JPEG","Alquiler",3,2,1,null,null);
+
+insert into propiedad values(null,"Villa de lujo frente al mar","lujo","colonia","","305","10","3","4","Si","90m²",100200000,"playa.JFIF","Venta",2,2,1,null,null);
+
+insert into foto values(null,"j1.JPG",2);
+insert into foto values(null,"j2.JPG",2);
+insert into foto values(null,"j3.JFIF",2);
+
+insert into descripcion values(null,"Amplia casa con encanto, brindando espacio y comodidad en cada rincón. Disfruta de sus amplias habitaciones y relájate en el exuberante jardín, creando momentos inolvidables en tu propio oasis de tranquilidad.",2);
