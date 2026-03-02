@@ -17,11 +17,12 @@ La plataforma incluye funciones de **geolocalización**, **gestión de usuarios*
 ---
 
 ## 🛠️ Tecnologías utilizadas
-- **Framework backend**: [CodeIgniter](https://codeigniter.com/)  
+- **Framework backend**: [CodeIgniter 3](https://codeigniter.com/)  
 - **Base de datos**: MySQL  
 - **Frontend**: HTML5, CSS3, JavaScript (Bootstrap)  
 - **Geolocalización**: Google Maps API  
-- **Servidor**: Apache / Nginx con PHP  
+- **Servidor**: Apache / Nginx con PHP
+- **PHP**: 7
 
 ---
 
