@@ -288,31 +288,21 @@ DELIMITER ;
 
 
 
-insert into ciudad values(null,"Querétaro");
+insert into pais values(null,"México",1);
+
+insert into ciudad values(null,"Querétaro",1,1);
 
 insert into usuario values(null,md5(12345678),"propietario",1,"");
 
-insert into propietario values(null,"David","Guillermo","Santiago","davgui@gmail.com",now(),"4423535507",1);
+insert into propietario values(null,"David","Guillermo","davgui@gmail.com",now(),"4423535507",1);
 
 
 insert into usuario values(null,md5(123),"propietario",1,"");
 
-insert into propietario values(null,"Luis","Negativo","Arredondo","lui@gmail.com",now(),"4151253212",2);
+insert into propietario values(null,"Luis","Negativo","lui@gmail.com",now(),"4151253212",2);
 
 
 
-insert into tipo values(null,"Casa");
-insert into tipo values(null,"Villa");
-insert into tipo values(null,"Departamento");
-
-insert into propiedad values(null,"Casa moderna","Arco la Gloria","San Pedrito los Arcos","101","43","5","2","3","Si","50m²",1200000,"casa.JFIF","Venta",1,1,1,null,null);
-
-insert into propiedad values(null,"Casa espaciosa con jardín","Conde","Condesa","12","403","5","3","2","Si","80m²",2400,"cajardin.JPEG","Alquiler",3,2,1,null,null);
-
-insert into propiedad values(null,"Villa de lujo frente al mar","lujo","colonia","","305","10","3","4","Si","90m²",100200000,"playa.JFIF","Venta",2,2,1,null,null);
-
-insert into foto values(null,"j1.JPG",2);
-insert into foto values(null,"j2.JPG",2);
-insert into foto values(null,"j3.JFIF",2);
-
-insert into descripcion values(null,"Amplia casa con encanto, brindando espacio y comodidad en cada rincón. Disfruta de sus amplias habitaciones y relájate en el exuberante jardín, creando momentos inolvidables en tu propio oasis de tranquilidad.",2);
+insert into tipo values(null,"Casa",1);
+insert into tipo values(null,"Villa",1);
+insert into tipo values(null,"Departamento",1);
