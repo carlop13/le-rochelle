@@ -1,7 +1,6 @@
 <div class="contenedor-header">
 
     <?php 
-
     $consulta = $this->db->select("*")->from("datos")->where("id",1)->get()->result_array();
 
     $nombre = $consulta["0"]["nombre"];
@@ -32,6 +31,28 @@
 }
 */
 
+        /* ESTA ES LA REGLA QUE RESUELVE EL PROBLEMA EN TU HEADER ORIGINAL */
+        @media screen and (max-width: 900px) {
+            .contenedor-header {
+                width: 100% !important;
+                max-width: 100vw !important;
+                box-sizing: border-box !important;
+                position: relative; /* Asegura que el z-index de la vista de información aplique bien */
+            }
+            .contenedor-header header {
+                width: 100% !important;
+                max-width: 100vw !important;
+                box-sizing: border-box !important;
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+            }
+            /* Se asegura de que el menú desplegado tome el 100% del ancho */
+            .contenedor-header nav#nav {
+                width: 100% !important;
+                left: 0 !important;
+                box-sizing: border-box !important;
+            }
+        }
     </style>
 
     <header>
@@ -39,7 +60,7 @@
         <img src="<?=base_url()?>static/images/image.ico" alt="Descripción de la imagen" style="width: 50px; height: 50px;">
     </div>
 
-    <div class="logo">           
+    <div class="logo">            
 
             <h1><i class="fa-solid fa-globe"></i></h1>
             <p><?=$nombre?></p>
@@ -79,25 +100,30 @@
 <br>
 &nbsp;&nbsp;
 <style type="text/css">
-    .bienvenido {
-        font-size: 18px;
-        font-weight: bold;
-        color: #333;
-        background-color: #f8f8f8;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid black;
-    }
-
-    .no-link-style {
-    text-decoration: none;
-    color: inherit;
-  }
+.bienvenido {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 1px solid #ddd;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .bienvenido i { color: #de4547; }
+        .bienvenido:hover { border-color: #de4547; color: #de4547; }
+        .no-link-style { text-decoration: none; color: inherit; }
 </style>
 
-<?php if($this->session->userdata("tokenn") && $this->session->tipo == "cliente"): ?>
-    <span class="bienvenido">
-       <i class="fas fa-user"></i> Hola: <?= urldecode($this->session->nombre) ?> 
-    </span>
-    <br><br>
-<?php endif; ?>
+        <?php if($this->session->userdata("tokenn") && $this->session->tipo == "cliente"): ?>
+            <a href="" class="no-link-style" title="Perfil">
+                <span class="bienvenido">
+                   <i class="fas fa-user"></i> Hola, <?= urldecode($this->session->nombre) ?> 
+                </span>
+            </a>
+        <?php endif; ?>

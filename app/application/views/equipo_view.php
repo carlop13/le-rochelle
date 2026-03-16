@@ -8,177 +8,195 @@
     <link rel="shortcut icon" href="<?=base_url()?>static/images/image.ico">
     <meta author="Carlos Guadalupe López Trejo">
     <title>Equipo de Trabajo</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?=base_url()?>/static/css/estilo.css">
-    <style>
+
+    <script src="<?=base_url()?>static/js/jquery-3.6.1.min.js"></script>
+    <script src="<?=base_url()?>static/js/mensajes.js" ></script>
+
+    <style type="text/css">
+        /* =======================================================
+           1. FIX GLOBAL Y FLEXBOX
+           ======================================================= */
+        html {
+            min-height: 100%;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            overflow-x: hidden; 
+            font-family: 'Open Sans', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        h2 {
+        .main-content {
+            flex: 1 0 auto; 
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            /* Padding ajustado a 40px como lo tienes en las demás */
+            padding: 40px 20px 60px 20px; 
+            box-sizing: border-box;
+        }
+
+        footer.footer-global {
+            flex-shrink: 0;
+            width: 100%;
+            background-color: #1b1b38;
+            color: #d4d4d9;
             text-align: center;
-            font-size: 30px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            color: #333;
-            text-transform: uppercase;
+            padding: 10px 15px;
+            margin-top: auto;
+            box-sizing: border-box;
+        }
+
+        .titulo-seccion {
+            font-size: 32px;
+            color: #0d083b;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 700;
             letter-spacing: 1px;
         }
 
-        .container2 {
+        /* =======================================================
+           2. TARJETAS MODERNAS DEL EQUIPO
+           ======================================================= */
+        .modern-team-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
             max-width: 900px;
             margin: 0 auto;
-            padding: 20px;
         }
 
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .team-card {
+        .modern-team-card {
             background-color: #fff;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+            width: 100%;
+            max-width: 320px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             overflow: hidden;
             text-align: center;
-            padding: 20px;
-            transition: transform 0.3s ease;
-             border: 1px solid #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 5px solid #de4547;
+            animation: fadeIn 0.8s ease;
         }
 
-        .team-card img {
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modern-team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .modern-team-card img {
             width: 100%;
-            height: 200px;
+            height: 280px;
             object-fit: cover;
-            border-radius: 10px 10px 0 0;
-            border: 1px solid #333;
+            border-bottom: 1px solid #eee;
         }
 
-        .team-card h3 {
-            font-size: 20px;
+        .modern-team-info {
+            padding: 25px 20px;
+        }
+
+        .modern-team-info h3 {
+            font-size: 22px;
             font-weight: bold;
-            margin-top: 15px;
+            color: #0d083b;
+            margin: 0 0 5px 0;
         }
 
-        .team-card p {
+        .modern-team-info p {
             font-size: 16px;
-            color: #666;
-            margin-bottom: 15px;
+            font-weight: 600;
+            color: #de4547; /* Rojo corporativo para el puesto */
+            margin: 0 0 20px 0;
         }
 
-        .team-card ul {
+        .modern-team-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
             list-style: none;
             padding: 0;
             margin: 0;
         }
 
-        .team-card ul li {
-            display: inline-block;
-            margin-right: 10px;
-        }
-
-        .team-card ul li a {
-            font-size: 20px;
-            color: #de4547;
+        .modern-team-social li a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f5f7fa;
+            color: #404040;
+            font-size: 18px;
             text-decoration: none;
+            transition: all 0.3s ease;
         }
 
-        .team-card:hover {
-            transform: scale(1.05);
+        .modern-team-social li a:hover {
+            background-color: #de4547;
+            color: #fff;
+            transform: scale(1.1);
         }
     </style>
 </head>
 
 <body class="page-equipo">
-    <div class="container">
+
+    <div class="container" style="position: relative; z-index: 9999;">
         <?php $this->load->view("header_view"); ?>
+    </div>
 
-        <h2>Nuestro Equipo</h2>
+    <main class="main-content">
+        <h2 class="titulo-seccion">Nuestro Equipo</h2>
 
-        <div class="team-grid container2">
-            <!-- Miembro 1 -->
-            <div class="team-card">
-                <img src="<?=base_url()?>/static/images/usuario.png" alt="Miembro del Equipo">
-                <h3>Cuauhtémoc Suárez Rangel</h3>
-                <p>CEO</p>
-                <ul>
-                    <li><a href="#" target="_blank"><i class="fas fa-phone-alt"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fas fa-envelope"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                </ul>
+        <div class="modern-team-container">
+            
+            <div class="modern-team-card">
+                <img src="<?=base_url()?>/static/images/usuario.png" alt="Cuauhtémoc Suárez Rangel">
+                <div class="modern-team-info">
+                    <h3>Cuauhtémoc Suárez Rangel</h3>
+                    <p>CEO</p>
+                    <ul class="modern-team-social">
+                        <li><a href="tel:+524427211537" title="Llamar"><i class="fas fa-phone-alt"></i></a></li>
+                        <li><a href="mailto:csuarez@yahoo.com.mx" title="Enviar correo"><i class="fas fa-envelope"></i></a></li>
+                    </ul>
+                </div>
             </div>
 
-            <!-- Miembro 2 -->
-            <div class="team-card">
-                <img src="<?=base_url()?>/static/images/usuario.png" alt="Miembro del Equipo">
-                <h3>Fatima Paola Alvarez Ontiveros</h3>
-                <p>Capital Humano</p>
-                <ul>
-                    <li><a href="#" target="_blank"><i class="fas fa-phone-alt"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fas fa-envelope"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                </ul>
-            </div>
-
-            <!-- Miembro 3 -->
-            <div class="team-card">
-                <img src="<?=base_url()?>/static/images/usuario.png" alt="Miembro del Equipo">
-                <h3>Fátima Denisse Martínez Mora</h3>
-                <p>Marketing</p>
-                <ul>
-                    <li><a href="#" target="_blank"><i class="fas fa-phone-alt"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fas fa-envelope"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                </ul>
-            </div>
-
-            <!-- Miembro 4 -->
-            <div class="team-card">
-                <img src="<?=base_url()?>/static/images/usuario.png" alt="Miembro del Equipo">
-                <h3>Lizbeth Williams Guerrero</h3>
-                <p>Marketing</p>
-                <ul>
-                    <li><a href="#" target="_blank"><i class="fas fa-phone-alt"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fas fa-envelope"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                </ul>
-            </div>
-
-            <!-- Miembro 5 -->
-            <div class="team-card">
-                <img src="<?=base_url()?>/static/images/usuario.png" alt="Miembro del Equipo">
-                <h3>Carlos Guadalupe López Trejo</h3>
-                <p>Sistemas</p>
-                <ul>
-                    <li><a href="#" target="_blank"><i class="fas fa-phone-alt"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fas fa-envelope"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fab fa-github"></i></a></li>
-                </ul>
-            </div>
-
-            <!-- Miembro 6 -->
-            <div class="team-card">
-                <img src="<?=base_url()?>/static/images/usuario.png" alt="Miembro del Equipo">
-                <h3>Miembro 6</h3>
-                <p>Ventas</p>
-                <ul>
-                    <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                    <li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                </ul>
+            <div class="modern-team-card">
+                <img src="<?=base_url()?>/static/images/usuario.png" alt="Carlos Guadalupe López Trejo">
+                <div class="modern-team-info">
+                    <h3>Carlos Guadalupe López Trejo</h3>
+                    <p>Ingeniero de Software</p>
+                    <ul class="modern-team-social">
+                        <li><a href="tel:+524423535507" title="Llamar"><i class="fas fa-phone-alt"></i></a></li>
+                        <li><a href="mailto:carlosguadalupelt13@gmail.com" title="Enviar correo"><i class="fas fa-envelope"></i></a></li>
+                        <li><a href="https://www.linkedin.com/in/carlos-guadalupe-l%C3%B3pez-trejo-380947234/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+                        <li><a href="https://github.com/carlop13" target="_blank" title="GitHub"><i class="fab fa-github"></i></a></li>
+                    </ul>
+                </div>
             </div>
 
         </div>
-    </div>
+    </main>
 
-    <footer class="inferior9">
+    <footer class="footer-global">
         <?php $this->load->view("footer_view");?>
     </footer>
+
     <script src="<?=base_url()?>static/js/script.js"></script>
 </body>
 

@@ -644,7 +644,7 @@ Haz clic para crear o cambiar posición
     <script src="<?=base_url()?>static/js/ubi.js" ></script>
     <script src="<?=base_url()?>static/js/agregarprop.js" ></script>
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZ7TvV1KlSm2HKZbZ0GvkovPDFkV1O-0Y&callback=iniciomapa" 
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC9NVdgMz2GdZa-UEpa4fyHkjcO0b60xiQ&callback=iniciomapa" 
     type="text/javascript"></script>
 
 </body>
